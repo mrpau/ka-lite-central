@@ -95,7 +95,7 @@ urlpatterns += patterns('central.views',
     #   keep it here so that things will function even if that app is removed.
     url(r'^download/videos/(.*)$', lambda request, vpath: HttpResponseRedirect(OUTSIDE_DOWNLOAD_BASE_URL + vpath)),
 
-    url(r'^wiki/installation/$', 'content_page', {"page": "wiki_page", "wiki_site": settings.CENTRAL_WIKI_URL, "path": "/installation/"}, 'install'),
+    #url(r'^wiki/installation/$', 'content_page', {"page": "wiki_page", "wiki_site": settings.CENTRAL_WIKI_URL, "path": "/installation/"}, 'install'),
 
     url(r'^contact/', include(contact.urls)),
     url(r'^about/$', lambda request: HttpResponseRedirect('http://learningequality.org/'), {}, 'about'),

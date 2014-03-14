@@ -61,6 +61,8 @@ def install(request):
     ip = get_request_ip(request) or ""
     if geo_ip_data and ip:
         record = geo_ip_data.record_by_addr(ip.strip())
+    else:
+        record = None
     return {
         "country_list": country_list,
         "record": record,

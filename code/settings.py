@@ -333,6 +333,10 @@ BACKUP_VIDEO_SOURCE = getattr(local_settings, "BACKUP_VIDEO_SOURCE", None)
 BACKUP_THUMBNAIL_SOURCE = getattr(local_settings, "BACKUP_THUMBNAIL_SOURCE", None)
 assert not BACKUP_VIDEO_SOURCE or CACHE_TIME == 0, "If BACKUP_VIDEO_SOURCE, then CACHE_TIME must be 0"
 
+#GEO IP Data
+GEO_IP_DOWNLOAD_URL = getattr(local_settings, "GEO_IP_DOWNLOAD_URL", "http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz")
+GEO_IP_DATA_PATH = os.path.join(DATA_PATH, "geo", "GeoLiteCity.dat")
+ISO_COUNTRY_LIST_DATA_PATH = os.path.join(DATA_PATH, "geo", "country-list-iso-codes.txt")
 
 ########################
 # Debugging and testing

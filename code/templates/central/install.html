@@ -17,6 +17,7 @@
 
     .install-scenario-short-description div {
         padding: 10px 15% 10px 20px;
+        color: black;
     }
 
     .install-scenario img {
@@ -24,8 +25,12 @@
         cursor: pointer;
     }
 
+    .install-scenario img {
+        opacity: 0.8;
+    }
+
     .install-scenario img:hover {
-        opacity: 0.7;
+        opacity: 1.0;
     }
 
     .centered-title {
@@ -61,6 +66,11 @@
     .centered {
         text-align: center;
     }
+
+    .form-horizontal {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 </style>
 {% endblock headcss %}
 
@@ -71,8 +81,8 @@
 
         $(".install-scenario img").click(function() {
             // highlight the clicked image, and de-emphasize the others
-            $(this).css("width", "90%").css("opacity", "1");
-            $(".install-scenario img").not(this).css("opacity", "0.5").css("width", "80%");
+            $(this).css("width", "120%").css("opacity", "1");
+            $(".install-scenario img").not(this).css("opacity", "0.4").css("width", "50%");
 
             // hide the current content block, and show the newly selected one
             var new_content_block = $("#" + $(this).attr("for"));
@@ -193,17 +203,17 @@
     {# Scenario 1 -- Personal Edition #}
     <div class="content-block content-block-hidden" id="scenario-1">
         <div class="row">
+            <div class="span12 centered">
             <h1>KA Lite Personal Edition</h1>
+            </div>
         </div>
         <div class="row">
-            <div class="span6">
-                <img src="http://placehold.it/350x150">
-            </div>
+            <div class="span3"></div>
             <div class="span6">
                 <p>You're almost there! Just fill out the form below and choose a download option to get started using KA Lite!</p>
                 {# Options Form #}
                 <form class="form-horizontal">
-                  <div class="control-group">
+                  <!--div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
                       <input type="text" id="inputName" placeholder="Name">
@@ -214,7 +224,7 @@
                     <div class="controls">
                       <input type="text" id="inputEmail" placeholder="Email">
                     </div>
-                  </div>
+                  </div-->
                   <div class="control-group">
                     <label class="control-label" for="inputOS">Operating System</label>
                     <div class="controls">
@@ -224,9 +234,11 @@
                           <option>Mac</option>
                           <option>Linux</option>
                           <option>Raspian</option>
+                          <option>Android</option>
                         </select>
                     </div>
                   </div>
+
                   <div class="control-group">
                     <label class="control-label" for="inputCountry">Country</label>
                     <div class="controls">
@@ -237,6 +249,7 @@
                         </select>
                     </div>
                   </div>
+
                   <div class="control-group">
                     <label class="control-label" for="inputLanguage">Language(s)</label>
                     <div class="controls">
@@ -249,16 +262,24 @@
                       <span class="help-block">Use CTRL + select to pick more than one.</span>
                     </div>
                   </div>
-                  <p>Help keep the project going by making a donation before you download!</p>
+                </form>
+
+                <div class="control-group">
+                  <p>KA Lite is always free, but we need your financial support to support
+                  important content and software updates.</p>
+
+                  <p>
+                  An average donation of $5 could help
+                  us sustain this project.</p>
                   <div class="row">
-                    <div class="span6">
+                    <div class="span3"></div>
+                    <div class="span6 centered">
                         <p><a href="#" class="button--large">Donate &amp; Download</a></p>
-                    </div>
-                    <div class="span6">
-                        <p><a href="#" class="button--large">No thanks, just Download</a></p>
+                        <p>&nbsp;</p>
+                        <p><a href="#" >No thanks, just Download</a></p>
                     </div>
                   </div>
-                </form>
+                </div>
             </div>
         </div>
     </div> {# END Scenario 1 -- Personal Edition #}

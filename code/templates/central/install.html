@@ -1,6 +1,6 @@
 {% extends base_template %}
 {% load i18n staticfiles %}
-
+{% block download_active %}active{% endblock download_active %}
 {% block title %}{% trans "Install KA Lite woooo" %}{{ block.super }}{% endblock title %}
 
 {% block headcss %}
@@ -40,6 +40,27 @@
         display: none;
     }
 
+    .examples-toggle {
+        cursor: pointer;
+    }
+
+    .examples-box {
+        display:none;
+        position: absolute;
+        left: 200px;
+        top: 200px;
+        width: 1200px;
+        background-color: white;
+        border: 5px dashed black;
+    }
+    .example {
+        width: 400px
+        margin: 25px;
+        float: left;
+    }
+    .centered {
+        text-align: center;
+    }
 </style>
 {% endblock headcss %}
 
@@ -59,13 +80,22 @@
             new_content_block.show();
 
         });
+
+        $(".examples-toggle").click(function() {
+            var example_set = $(this).attr("value");
+            var this_box = $("#examples-" + example_set);
+
+            $(".examples-box").not(this_box).hide();
+            this_box.toggle();
+        });
+//href="javascript:$('#personal-examples').toggle();"            foreach(function(){this.hide();})
     });
 
 </script>
 {% endblock headjs %}
 
 {% block content %}
-    <h1 class="centered-title">Install KA Lite: Which of these 3 scenarios best describes your needs?</h1>
+    <h1 class="centered-title">Download KA Lite: Which of these 3 scenarios best describes your needs?</h1>
 
     <br/>
 
@@ -88,17 +118,46 @@
             <div>
                 <h2 class="centered-title">Personal Edition</h2>
                 <ul>
-                    <li>Install KA Lite directly to a single computer for offline use.</li>
+                    <li>Install KA Lite directly to a single device for offline use.</li>
                 </ul>
+
+                <div class="centered">
+                    <a class="examples-toggle" value="personal">Who does this?</a>
+                </div>
+                <div class="examples-box" id="examples-personal">
+                    <div class="example">
+                        <h2>Jenny uses hers on her Android device</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                    <div class="example">
+                        <h2>Matt uses his on his laptop, on a boat</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                </div>
+
             </div>
         </div>
-
         <div class="install-scenario-short-description">
             <div>
                 <h2 class="centered-title">Classroom Edition</h2>
                 <ul>
                     <li>Install KA Lite to an offline server, for multiple client devices to connect to.</li>
                 </ul>
+
+                <div class="centered">
+                    <a class="examples-toggle" value="classroom">Who does this?</a>
+                </div>
+                <div class="examples-box" id="examples-classroom">
+                    <div class="example">
+                        <h2>A classroom with no syncing</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                    <div class="example">
+                        <h2>A classroom with remote data and backups</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -108,6 +167,21 @@
                 <ul>
                     <li>Larger multi-server deployment, with options for syncing data between servers.</li>
                 </ul>
+
+                <div class="centered">
+                    <a class="examples-toggle" value="school">Who does this?</a>
+                </div>
+                <div class="examples-box" id="examples-school">
+                    <div class="example">
+                        <h2>Blah</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                    <div class="example">
+                        <h2>A different blah</h2>
+                        <img src="http://placehold.it/350x150">
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -137,6 +137,11 @@ class Command(BaseCommand):
                     default=SHORTVERSION,
                     metavar="SHORTVERSION",
                     help="Output version"),
+        make_option('--rebuild',
+                    action='store_true',
+                    dest='rebuild',
+                    default=False,
+                    help="Build latest translations into zip archive on CrowdIn."),
     )
 
     def handle(self, *args, **options):
@@ -170,6 +175,8 @@ class Command(BaseCommand):
         # For dealing with central server changes across versions
         upgrade_old_schema()
 
+        if options['rebuild']:
+            build_translations()
         # Now, we're going to build the language packs, collecting metadata long the way.
         package_metadata = update_language_packs(lang_codes, options)
 
@@ -413,7 +420,6 @@ def download_latest_translations(project_id=None,
         # Tell CrowdIn to Build latest package
         if rebuild:
             build_translations()
-
         request_url = "%s/%s/download/%s.zip?key=%s" % (CROWDIN_API_URL, project_id, lang_code, project_key)
         try:
             resp = requests.get(request_url)
@@ -469,7 +475,6 @@ def download_latest_translations(project_id=None,
 
 def build_translations(project_id=None, project_key=None):
     """Build latest translations into zip archive on CrowdIn."""
-
     if not project_id:
         project_id = settings.CROWDIN_PROJECT_ID
     if not project_key:

@@ -25,11 +25,12 @@ INSTALLED_APPS = (
     "announcements",  # display announcements in the header
     "south",
     "fle_utils.django_utils",  # custom template tags
+    "fle_utils.backbone",
     "securesync",
     "kalite.facility",
     "kalite.coachreports",  # in both apps; reachable on central via control_panel
     "kalite.control_panel",  # in both apps
-    "kalite.khanload",  # zip_kalite must know about the entire kalite project structure.  Boo, bad code placement!
+    "kalite.contentload",  # zip_kalite must know about the entire kalite project structure.  Boo, bad code placement!
     "kalite.playlist",
     "kalite.testing",  # browser testing
     "kalite.updates",

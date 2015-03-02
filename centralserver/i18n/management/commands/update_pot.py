@@ -11,6 +11,7 @@ hope of making it easy to identify unwrapped strings.
 
 This can be run independently of the "update_language_packs" command
 """
+import contextlib
 import glob
 import pathlib
 import polib
@@ -20,17 +21,19 @@ import shutil
 from optparse import make_option
 
 from django.conf import settings
+from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 
 from ... import POT_DIRPATH, CROWDIN_API_URL
 from fle_utils.general import ensure_dir
-from kalite.i18n import get_po_filepath
 from kalite.i18n.management.commands import test_wrappings
 from kalite import version
 
 logging = settings.LOG
 
 TRANSLATOR_VARIABLE_COMMENT = "Translators: do not change variable names (anything with format %(xxxx)s)."
+
+CROWDIN_API_URL = "https://api.crowdin.com/api/project"
 
 
 class Command(test_wrappings.Command):
@@ -74,20 +77,24 @@ def delete_current_templates():
 
 def run_makemessages(verbosity=0):
 
-    python_package_dirs = glob.glob(os.path.join(test_wrappings.PROJECT_ROOT, 'ka-lite', 'python-packages', '*'))
-    ignored_packages = [os.path.join('*/python-packages/', os.path.basename(pp))
-                        for pp in python_package_dirs
-                        if os.path.basename(pp) not in ['securesync', 'fle_utils']]
+    @contextlib.contextmanager
+    def inside_kalite():
+        olddir = os.getcwd()
+        # Include the ka-lite-submodule when processing the *.po files.
+        p = os.path.join(settings.PROJECT_PATH, "..")
+        os.chdir(p)
 
-    # Central-specific patterns, added on the distributed versions
-    ignore_patterns_py = ignore_patterns_js = ignored_packages + ['*/centralserver/*']
+        yield
 
-    test_wrappings.run_makemessages(ignore_patterns_py=ignore_patterns_py,
-                                    ignore_patterns_js=ignore_patterns_js,
-                                    verbosity=verbosity)
+        os.chdir(olddir)
 
-    # Return the list of files created.
-    return glob.glob(os.path.join(get_po_filepath(lang_code="en"), "*.po"))
+    ignore_patterns = ["*/python-packages/*", "*/kalite/static/*", "*/js/i18n/*.js",
+                       "*/i18n/build/*", "*/media/language_packs/*"]
+    with inside_kalite():
+        ensure_dir("locale")
+        call_command("makemessages", locale="en", ignore_patterns=ignore_patterns, no_obsolete=True, domain="django")
+        call_command("makemessages", locale="en", ignore_patterns=ignore_patterns, no_obsolete=True, domain="djangojs")
+        return glob.glob(os.path.join(''.join(settings.LOCALE_PATHS), "en", "LC_MESSAGES", "*.po"))
 
 
 def insert_translator_comments(po_filepaths):
@@ -135,11 +142,11 @@ def upload_to_crowdin(project_key, project_id="ka-lite", update_files_only=False
 
     api_call = "update-file" if update_files_only else "add-file"
 
-    url = "https://api.crowdin.com/api/project/{project_id}/{api_call}"
     url = url_template.format(project_id=project_id,
+                              crowdin_api_url=CROWDIN_API_URL,
                               api_call=api_call)
 
-    version_namespace = "%s.%s" % (version.MAJOR_VERSION, version.MINOR_VERSION)
+    version_namespace = version.SHORTVERSION
 
     pot_path = pathlib.Path(POT_DIRPATH)
     files_to_upload = {

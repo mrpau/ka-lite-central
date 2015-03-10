@@ -9,7 +9,7 @@ import sys
 from django.conf import settings
 from django.core import management
 
-from kalite.testing import KALiteTestRunner
+from kalite.testing.testrunner import KALiteTestRunner
 
 
 class CentralTestRunner(KALiteTestRunner):

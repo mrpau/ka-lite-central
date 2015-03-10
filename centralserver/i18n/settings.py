@@ -11,7 +11,6 @@ except ImportError:
 ########################
 
 INSTALLED_APPS = (
-    "kalite.i18n",  # middleware for setting user's default language.  TODO: move this code to facility, break the dependency.
     "kalite.topic_tools",  # lots of access to topic_tools
 )
 
@@ -37,4 +36,7 @@ AMARA_API_KEY           = getattr(local_settings, "AMARA_API_KEY", None)
 
 I18N_CENTRAL_DATA_PATH = os.path.join(os.path.dirname(__file__), "data")
 
-DUBBED_LANGUAGES_FETCHED_IN_API = ["es", "fr"]
+# So KA used to have a translated_youtube_id field from the video API.
+# But that seems to be gone now, so we just don't fetch any dubbed
+# video data from their API.
+DUBBED_LANGUAGES_FETCHED_IN_API = [] # ["es", "fr"]

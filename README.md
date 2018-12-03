@@ -44,13 +44,14 @@ Hopefully we can standardize our dev environment and get up and running much mor
 
 
 ### Vagrant box specs
-    1. Ubuntu 14.04 LTS 32-bit
-    1. Python 2.7.x
-    1. MySQL 5.5
-    1. Django 1.5.12
-        1. This is based on the version at `ka-lite-submodule/python-packages/django/__init__.py`.
-        1. TODO(cpauya): Since multiple KA Lite servers sync to the Central server, it is assumed that they will have different versions.  This Central server Django version must therefore be >= the most recent Django version of all distributed KA Lite servers.
-    1. A `virtualenv` is located under the `/vagrant/virtualenv` folder so you can activate a virtual environment inside the Vagrant box by running `source /vagrant/virtualenv/bin/activate`.
+
+1. Ubuntu 14.04 LTS 64-bit
+1. Python 2.7.6
+1. MySQL 5.5.62 == Ver 14.14 Distrib 5.5.62, for debian-linux-gnu (x86_64) using readline 6.3
+1. Django 1.5.12
+    1. This is based on the version at `ka-lite-submodule/python-packages/django/__init__.py`.
+    1. TODO(cpauya): Since multiple KA Lite servers sync to the Central server, it is assumed that they will have different versions.  This Central server Django version must therefore be >= the most recent Django version of all distributed KA Lite servers.
+1. A `virtualenv` is located under the `/vagrant/virtualenv` folder so you can activate a virtual environment inside the Vagrant box by running `source /vagrant/virtualenv/bin/activate`.  TODO(cpauya): Install and use `virtualenvwrapper`.
 
 
 <!-- 

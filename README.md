@@ -37,9 +37,10 @@ Hopefully we can standardize our dev environment and get up and running much mor
 2. Run `vagrant up` to start the machine and provision it.
     * This will take a long time.
     * The `ka-lite-central` directory of your host computer is automatically shared as a directory in the `/vagrant/` folder of the Vagrant box.
-3. Run `vagrant ssh` to start an SSH session in the virtual machine. Go to the `/vagrant/centralserver` directory and run the command `./manage.py setup` to finish the setup process.
-4. Run `./manage runserver 0.0.0.0:8001` to load the KA-Lite Django server.
-5. On your host web browser, open `http://127.0.0.1:8030` to access the KA-Lite Django server in the Vagrant box.  Alternatively, you can also use `http://localhost:8030`.
+3. If the provisioning script was successful, you can open `http://localhost:8030/` in your host machine web browser to open the KA-Lite central Django server.
+4. These next steps are optional.  
+    * To further customize the Vagrant box, run `vagrant ssh` to start an SSH session in the virtual machine. Go to the `/vagrant/centralserver` directory and run the command `./manage.py setup` and follow the prompts to finish the setup process.
+    * Run `./manage runserver 0.0.0.0:8030` to load the KA-Lite Django server.
 
 
 ### Vagrant box specs

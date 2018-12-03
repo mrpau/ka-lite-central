@@ -1,0 +1,19 @@
+version: '0.1'
+services:
+  web:
+    build: .
+    # command: ls -a
+    command: python centralserver/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+  #   links:
+  #     - db:db
+  # db:
+  #   image: mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: docker
+  #     MYSQL_DATABASE: docker
+  #     MYSQL_USER: docker
+  #     MYSQL_PASSWORD: docker

@@ -9,7 +9,7 @@ import uuid
 
 # import the base settings from kalite up here, since we need things from there but also don't
 # want stuff like INSTALLED_APPS from there to swamp the settings defined in the current file
-from kalite.settings.base import *
+from kalite.settings import *
 
 ########################
 #
@@ -173,7 +173,7 @@ INSTALLED_APPS = (
     'kalite.main',
     'django.contrib.admin',
     'kalite.testing.loadtesting',
-    'kalite.contentload',
+    # 'kalite.contentload',
     'kalite.control_panel',
     'centralserver.central',
     'django_js_reverse',

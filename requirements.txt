@@ -9,6 +9,7 @@ six==1.9.0
 wsgiref==0.1.2
 # MySQL-python==1.2.5
 django-postmark==0.1.6
-
-django==1.5.12
 django_js_reverse
+
+# TODO(cpauya): We MUST remove this after we point the app to the `python-packages/` Django version.
+django==1.5.12

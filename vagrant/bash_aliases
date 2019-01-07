@@ -1,0 +1,18 @@
+alias ll='ls -l'
+alias p='pwd'
+alias c='clear'
+
+alias ka-central='source /vagrant/virtualenv/bin/activate; cd /vagrant/centralserver;'
+alias rs='./manage.py runserver 0.0.0.0:8001'
+
+alias ng-stop='sudo service nginx stop'
+alias ng-start='sudo service nginx start'
+alias ng-test='sudo service nginx configtest'
+alias ng-access='sudo tail -f /var/log/nginx/access.log'
+alias ng-error='sudo tail -f /var/log/nginx/error.log'
+
+alias uw-start='sudo service uwsgi start'
+alias uw-stop='sudo service uwsgi stop'
+alias uw-status='sudo service uwsgi status'
+# alias uw-log='sudo tail -f /etc/uwsgi/logs/central.log'
+alias uw-log='sudo tail -f /var/log/uwsgi-emperor.log'

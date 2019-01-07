@@ -31,22 +31,34 @@ A Django app which is "It's Complicated" with [ka-lite](https://github.com/learn
 
 TODO(cpauya): The Vagrant box should be similar to the production server setup.
 
-Hopefully we can standardize our dev environment and get up and running much more quickerer.
+Using Vagrant can standardize our dev environment and get up and running much quicker.
 
 1. Get the latest version of vagrant. **Warning:** On Debian (even on testing) the version is far behind. Get it from the [Vagrant](https://www.vagrantup.com) website.
-2. Run `vagrant up` to start the machine and provision it.
+2. Run `vagrant up` to start the box and provision it.
     * This will take a long time.
     * The `ka-lite-central` directory of your host computer is automatically shared as a directory in the `/vagrant/` folder of the Vagrant box.
-3. If the provisioning script was successful, you can open `http://localhost:8030/` in your host machine web browser to open the KA-Lite central Django server.
-4. These next steps are optional.  
+    * TODO(cpauya): For now, you have to restart the Vagrant box after provisioning for the first time to UWSGI work.
+        * Run `vagrant halt` to shutdown the box.
+        * Run `vagrant up` to start the box again.
+3. If the provisioning script was successful, you can open `http://localhost:8080/` in your host machine web browser to open the KA-Lite central Django server.
+4. These next steps are optional if you want to customize your KA Central setup.  
     * To further customize the Vagrant box, run `vagrant ssh` to start an SSH session in the virtual machine. Go to the `/vagrant/centralserver` directory and run the command `./manage.py setup` and follow the prompts to finish the setup process.
-    * Run `./manage runserver 0.0.0.0:8030` to load the KA-Lite Django server.
+    * Restart the Vagrant box with the `vagrant reload` command.
+
+
+**References**
+
+* https://uwsgi-docs.readthedocs.io/en/latest/tutorials/Django_and_nginx.html#setting-up-django-and-your-web-server-with-uwsgi-and-nginx
 
 
 ### Vagrant box specs
 
 1. Ubuntu 14.04 LTS 64-bit
+1. TODO(cpauya): Ansible scripts at https://github.com/fle-internal/ansible-playbooks
+    1. `keep` == production server for ka-lite-central
+    1. `globe` == copy of the database, maybe old
 1. Python 2.7.6
+1. Nginx 1.4.6
 1. MySQL 5.5.62 == Ver 14.14 Distrib 5.5.62, for debian-linux-gnu (x86_64) using readline 6.3
 1. Django 1.5.12
     1. This is based on the version at `ka-lite-submodule/python-packages/django/__init__.py`.
@@ -77,7 +89,7 @@ If you have no idea how to use Virtualenv, here's a primer as one reference [How
  -->
 
 
-## Running ka-lite-central
+## TODO(cpauya): Running ka-lite-central
 
 ### Pointing ka-lite server/s to local Central server
 
